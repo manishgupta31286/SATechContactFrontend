@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contact } from '../models/contact';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
 
-  private apiUrl = "http://localhost:5046/api";
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
   getAll(searchTerm: string, pageNumber: number, pageSize: number): Observable<{ totalCount: number, contacts: Contact[] }> {
