@@ -10,13 +10,45 @@ import { ContactService } from '../services/contact-service.service';
 })
 export class ContactlistComponent {
   contacts: Contact[] = [];
-
+  searchTerm: string = '';
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalContacts: number = 0;
+  totalPages: number = 0;
   constructor(private router: Router, private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.contactService.GetAll().subscribe(data => {
-      this.contacts = data;
-    });
+    this.getContacts();
+  }
+
+  getContacts() {
+    this.contactService.getAll(this.searchTerm, this.currentPage, this.pageSize)
+      .subscribe(response => {
+        console.log(response);
+        this.contacts = response.contacts;
+        console.log(this.contacts);
+        this.totalContacts = response.totalCount;
+        this.totalPages = Math.ceil(this.totalContacts / this.pageSize); // Calculate total pages
+      });
+  }
+
+  searchContacts() {
+    this.currentPage = 1; // Reset to first page on new search
+    this.getContacts();
+  }
+
+  nextPage() {
+    if (this.currentPage * this.pageSize < this.totalContacts) {
+      this.currentPage++;
+      this.getContacts();
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getContacts();
+    }
   }
 
   edit(id: number): void {

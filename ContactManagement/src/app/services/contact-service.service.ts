@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contact } from '../models/contact';
 import { Observable } from 'rxjs';
@@ -11,8 +11,13 @@ export class ContactService {
   private apiUrl = "http://localhost:5046/api";
 
   constructor(private http: HttpClient) { }
-  GetAll(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`${this.apiUrl}/Contact`);
+  getAll(searchTerm: string, pageNumber: number, pageSize: number): Observable<{ totalCount: number, contacts: Contact[] }> {
+    const params = new HttpParams()
+      .set('searchTerm', searchTerm)
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<{ totalCount: number, contacts: Contact[] }>(`${this.apiUrl}/contact`, { params });
   }
 
   GetById(id: number): Observable<Contact[]> {
