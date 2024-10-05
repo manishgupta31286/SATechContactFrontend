@@ -1,27 +1,35 @@
-<h1 *ngIf="isNew">New Contact</h1>
-<h1 *ngIf="!isNew">Edit Contact</h1>
-<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-    <div>
-        <label for="firstName">First Name:</label>
-        <input id="firstName" formControlName="firstName">
-        <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched">
-            First Name is required.
+<div class="container mt-4">
+    <h1 class="text-center mb-4" *ngIf="isNew">New Contact</h1>
+    <h1 class="text-center mb-4" *ngIf="!isNew">Edit Contact</h1>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input id="firstName" formControlName="firstName" class="form-control" placeholder="Enter First Name">
+            <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched"
+                class="text-danger">
+                First Name is required.
+            </div>
         </div>
-    </div>
-    <div>
-        <label for="lastName">Last Name:</label>
-        <input id="lastName" formControlName="lastName">
-        <div *ngIf="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched">
-            Last Name is required.
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input id="lastName" formControlName="lastName" class="form-control" placeholder="Enter Last Name">
+            <div *ngIf="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched"
+                class="text-danger">
+                Last Name is required.
+            </div>
         </div>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input id="email" formControlName="email">
-        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-            <div *ngIf="contactForm.get('email')?.errors?.required">Email is required.</div>
-            <div *ngIf="contactForm.get('email')?.errors?.email">Invalid email format.</div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" formControlName="email" class="form-control" placeholder="Enter Email">
+            <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-danger">
+                <div *ngIf="contactForm.get('email')?.errors?.required">Email is required.</div>
+                <div *ngIf="contactForm.get('email')?.errors?.email">Invalid email format.</div>
+            </div>
         </div>
-    </div>
-    <button type="submit" [disabled]="contactForm.invalid">Save</button>
-</form>
+
+        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Save</button>
+    </form>
+</div>

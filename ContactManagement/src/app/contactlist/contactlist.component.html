@@ -1,21 +1,29 @@
-<table>
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Email</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let contact of contacts">
-            <td>{{contact.id}}</td>
-            <td>{{contact.firstName}}</td>
-            <td>{{contact.lastName}}</td>
-            <td>{{contact.email}}</td>
-            <td><button (click)="edit(contact.id)">Edit</button></td>
-            <td><button (click)="delete(contact.id)">Delete</button></td>
-        </tr>
-    </tbody>
-</table>
-<button (click)="edit(0)">New</button>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Contact Management</h2>
+
+    <button class="btn btn-primary mb-3" (click)="edit(0)">New Contact</button>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contact of contacts">
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.firstName }}</td>
+                <td>{{ contact.lastName }}</td>
+                <td>{{ contact.email }}</td>
+                <td class="text-center">
+                    <button class="btn btn-warning btn-sm" (click)="edit(contact.id)">Edit</button>
+                    <button class="btn btn-danger btn-sm" (click)="delete(contact.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
